@@ -5,22 +5,30 @@ from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
 
+from plone.uuid.interfaces import IUUID
+
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 
 from Products.statusmessages.interfaces import IStatusMessage
 
-from logging import getLogger
-logger = getLogger('netstal')
+from Products.ATContentTypes.lib import constraintypes
 
-from netstal.theme import MessageFactory as _
+from logging import getLogger
+logger = getLogger('collective.favorites')
+
+from collective.favorites import MessageFactory as _
+
+
 
 def createFavFolder(event):
     request = event.object.REQUEST
-
+    
     home_folder = getToolByName(event.object, 'portal_membership').getHomeFolder()
-    if home_folder != None:        
+    
+    if home_folder != None:     
+        home_folder.setImmediatelyAddableTypes(["collective.favorites.favoritesfolder"])
         if not home_folder.has_key('favorites'):
-            favFolder = home_folder.invokeFactory(type_name="Folder", id='favorites', language= '')
+            favFolder = home_folder.invokeFactory(type_name="collective.favorites.favoritesfolder", id='favorites', language= '')
             home_folder['favorites'].setTitle('Favorites')
 
 
@@ -30,27 +38,46 @@ class AddFavoriteView(BrowserView):
         self.context = context
         self.request = request
 
+
+    # BrowserView helper method
+    def getUID(self):
+        """ AT and Dexterity compatible way to extract UID from a content item """
+        # Make sure we don't get UID from parent folder accidentally
+        context = self.context.aq_base
+        # Returns UID of the context or None if not available
+        # Note that UID is always available for all Dexterity 1.1+
+        # content and this only can fail if the content is old not migrated
+        uuid = IUUID(context, None)
+        return uuid
+
     def __call__(self):
         self.messages = IStatusMessage(self.request)
         
         link_id = self.context.id
         link_title = self.context.title
         link_url = self.context.absolute_url()
+        link_uid = self.getUID()
+        
+        #import ipdb; ipdb.set_trace()
         
         home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
         
-        if home_folder != None:
+        if home_folder == None:
+            self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
+        else:
             if not home_folder.has_key('favorites'):
-                home_folder.invokeFactory(type_name="Folder", id='favorites', Title='Favorites', language= '')
-            else:
-                fav = home_folder['favorites']
-                if not fav.has_key(link_id):
-                    link = fav.invokeFactory(type_name="Link", id=link_id, language= '')
-                    fav[link].setTitle(link_title)
-                    
-                    fav[link].setRemoteUrl(link_url)
-                    self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
-                else:           
-                    self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
+                #home_folder.invokeFactory(type_name="collective.favorites.favoritesfolder", id='favorites', Title='Favorites', language= '')
+                typestool = getToolByName(self.context, 'portal_types')
+                typestool.constructContent(type_name="collective.favorites.favoritesfolder", container=home_folder, id=id)
+            fav = home_folder['favorites']
+            #fav.setImmediatelyAddableTypes(["collective.favorites.favoritesfolder"])
+            if not fav.has_key(link_id):
+                link = fav.invokeFactory(type_name="collective.favorites.favorites", id=link_id, language= '')
+                fav[link].setTitle(link_title)
+                
+                fav[link].setRemoteUrl(link_url)
+                self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
+            else:           
+                self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
         return self.request.RESPONSE.redirect(self.context.absolute_url())
     

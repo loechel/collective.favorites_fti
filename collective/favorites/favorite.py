@@ -3,29 +3,28 @@ from plone.directives import dexterity, form
 
 from zope import schema
 from zope.schema.interfaces import IContextSourceBinder
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
-from zope.interface import invariant, Invalid
+from zope.interface import invariant, Invalid, Interface, implements
+from AccessControl import ClassSecurityInfo
 
 from z3c.form import group, field
-
-from plone.namedfile.interfaces import IImageScaleTraversable
-from plone.namedfile.field import NamedImage, NamedFile
-from plone.namedfile.field import NamedBlobImage, NamedBlobFile
-
-from plone.app.textfield import RichText
 
 from z3c.relationfield.schema import RelationList, RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
+from plone.app.uuid.utils import uuidToObject
+
 from collective.favorites import MessageFactory as _
+
+from logging import getLogger
+logger = getLogger('collective.favorite')
 
 
 # Interface class; used to define content-type schema.
 
-class IFavorite(form.Schema, IImageScaleTraversable):
+class IFavorite(form.Schema):
     """
-    An internal Fovorite
+    An internal Favorite
     """
     
     # If you want a schema-defined interface, delete the form.model
@@ -36,6 +35,7 @@ class IFavorite(form.Schema, IImageScaleTraversable):
     
     form.model("models/favorite.xml")
 
+    target_uid = schema.ASCIILine(title = _(u'Target UID'), description = _(u""))
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -47,7 +47,21 @@ class Favorite(dexterity.Item):
     
     # Add your class methods and properties here
 
+    def target(self):
+        obj = uuidToObject(self.target_uid)
+        if not obj:
+            # Could not find object
+            raise RuntimeError(u"Could not look-up UUID:", self.target_uid)
+        return obj
+        
+    @property
+    def title(self):
+        return self.target().title
 
+    @property
+    def description(self):
+        return self.target().Description()
+        
 # View class
 # The view will automatically use a similarly named template in
 # favorite_templates.
@@ -58,8 +72,15 @@ class Favorite(dexterity.Item):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
+class FavoriteView(grok.View):
     grok.context(IFavorite)
     grok.require('zope2.View')
     
-    # grok.name('view')
+    grok.name('view')
+    
+    security = ClassSecurityInfo()
+
+        
+    def render(self):
+        target = self.context.target()
+        return self.request.RESPONSE.redirect(target.absolute_url())
