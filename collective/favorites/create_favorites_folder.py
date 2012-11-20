@@ -73,12 +73,12 @@ class AddFavoriteView(BrowserView):
                 home_folder[fav].setTitle(_(u"Favorites"))
             fav = home_folder['favorites']
             if not fav.has_key('fav'+link_uid):
-                
                 #import ipdb; ipdb.set_trace()
                 try:
                     link = typestool.constructContent(type_name="Favorite", container=fav, id='fav' + link_uid)
                 except: 
                     link = fav.invokeFactory(type_name="Favorite", id='fav' + link_uid)
+
                 #fav[link].setTitle(link_title)
                 
                 #fav[link].setRemoteUrl(link_url)
