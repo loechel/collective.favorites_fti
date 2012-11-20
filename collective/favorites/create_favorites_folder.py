@@ -76,8 +76,8 @@ class AddFavoriteView(BrowserView):
                 
                 import ipdb; ipdb.set_trace()
                 
-                link = typestool.constructContent(type_name="collective.favorites.favorite", container=fav, id='fav' + link_uid)
-                #link = fav.invokeFactory(type_name="collective.favorites.favorites", id='fav' + link_uid, language= '')
+                link = typestool.constructContent(type_name="collective.favorites.favorite", container=fav, id='fav' + link_uid, target_uid = link_uid)
+                #link = fav.invokeFactory(type_name="collective.favorites.favorite", id='fav' + link_uid, language= '')
                 #fav[link].setTitle(link_title)
                 
                 #fav[link].setRemoteUrl(link_url)

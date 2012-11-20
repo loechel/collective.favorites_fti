@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<object name="collective.favorites.favoritesfolder"
+<object name="Favorites Folder"
    meta_type="Dexterity FTI"
    i18n:domain="collective.favorites" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
@@ -12,7 +12,7 @@
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>  
   <property name="allowed_content_types" >
-      <element value="collective.favorite.favorite" />
+      <element value="Favorite" />
   </property>
   <property name="allow_discussion">False</property>
 
