@@ -9,7 +9,7 @@ from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from Products.statusmessages.interfaces import IStatusMessage
 
 from logging import getLogger
-logger = getLogger('netstal')
+logger = getLogger('collective')
 
 from collective.favorites import MessageFactory as _
 

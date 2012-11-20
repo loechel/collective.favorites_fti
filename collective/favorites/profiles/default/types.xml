@@ -8,6 +8,6 @@
   -->
 <object name="portal_types" meta_type="Plone Types Tool">
   <!-- -*- extra stuff goes here -*- -->
-  <object name="collective.favorites.favorite" meta_type="Dexterity FTI" />
-  <object name="collective.favorites.favoritesfolder" meta_type="Dexterity FTI" />
+  <object name="Favorite" meta_type="Dexterity FTI" />
+  <object name="Favorites Folder" meta_type="Dexterity FTI" />
 </object>

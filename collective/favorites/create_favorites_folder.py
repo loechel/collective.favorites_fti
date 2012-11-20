@@ -27,9 +27,9 @@ def createFavFolder(event):
     
     if home_folder != None:
         if not home_folder.has_key('favorites'):
-            #favFolder = home_folder.invokeFactory(type_name="collective.favorites.favoritesfolder", id='favorites', language= '')
+            #favFolder = home_folder.invokeFactory(type_name="Favorites Folder", id='favorites', language= '')
             typestool = getToolByName(self.context, 'portal_types')
-            typestool.constructContent(type_name="collective.favorites.favoritesfolder", container=home_folder, id='favorites')
+            typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
             home_folder['favorites'].setTitle('Favorites')
 
 
@@ -68,16 +68,17 @@ class AddFavoriteView(BrowserView):
             self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
         else:
             if not home_folder.has_key('favorites'):
-                #home_folder.invokeFactory(type_name="collective.favorites.favoritesfolder", id='favorites', Title='Favorites', language= '')
-                fav = typestool.constructContent(type_name="collective.favorites.favoritesfolder", container=home_folder, id='favorites')
+                #home_folder.invokeFactory(type_name="Favorites Folder", id='favorites', Title='Favorites', language= '')
+                fav = typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
                 home_folder[fav].setTitle(_(u"Favorites"))
             fav = home_folder['favorites']
             if not fav.has_key('fav'+link_uid):
                 
-                import ipdb; ipdb.set_trace()
-                
-                link = typestool.constructContent(type_name="collective.favorites.favorite", container=fav, id='fav' + link_uid)
-                #link = fav.invokeFactory(type_name="collective.favorites.favorites", id='fav' + link_uid, language= '')
+                #import ipdb; ipdb.set_trace()
+                try:
+                    link = typestool.constructContent(type_name="Favorite", container=fav, id='fav' + link_uid)
+                except: 
+                    link = fav.invokeFactory(type_name="Favorite", id='fav' + link_uid)
                 #fav[link].setTitle(link_title)
                 
                 #fav[link].setRemoteUrl(link_url)
