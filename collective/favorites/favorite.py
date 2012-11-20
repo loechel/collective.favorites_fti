@@ -33,7 +33,7 @@ class IFavorite(form.Schema):
     # models/favorite.xml to define the content type
     # and add directives here as necessary.
     
-    form.model("models/favorite.xml")
+    #form.model("models/favorite.xml")
 
     target_uid = schema.ASCIILine(title = _(u'Target UID'), description = _(u""))
 

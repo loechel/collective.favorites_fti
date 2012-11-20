@@ -12,6 +12,7 @@ from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
 from Products.statusmessages.interfaces import IStatusMessage
 
 from Products.ATContentTypes.lib import constraintypes
+from plone.dexterity.utils import createContentInContainer
 
 from logging import getLogger
 logger = getLogger('collective.favorites')
@@ -74,15 +75,16 @@ class AddFavoriteView(BrowserView):
             fav = home_folder['favorites']
             if not fav.has_key('fav'+link_uid):
                 #import ipdb; ipdb.set_trace()
-                try:
-                    link = typestool.constructContent(type_name="Favorite", container=fav, id='fav' + link_uid)
-                except: 
-                    link = fav.invokeFactory(type_name="Favorite", id='fav' + link_uid)
+                #try:
+                #link = typestool.constructContent(type_name="Favorite", container=fav, id='fav' + link_uid)
+                #except: 
+                #link = fav.invokeFactory(type_name="Favorite", id='fav' + link_uid)
+                link = createContentInContainer(fav, "Favorite", checkConstrains=False, id='fav' + link_uid, title='fav'+link_uid)
 
                 #fav[link].setTitle(link_title)
                 
                 #fav[link].setRemoteUrl(link_url)
-                fav[link].target_uid = link_uid
+                #fav[link].target_uid = link_uid
                 self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
             else:           
                 self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
