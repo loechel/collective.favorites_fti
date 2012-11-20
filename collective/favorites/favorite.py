@@ -35,6 +35,10 @@ class IFavorite(form.Schema):
     
     #form.model("models/favorite.xml")
 
+    title = schema.TextLine(title = _(u'Title'), description = _(""))
+
+    description = schema.Text(title = _(u'Description'), description = _(""))
+
     target_uid = schema.ASCIILine(title = _(u'Target UID'), description = _(u""))
 
 # Custom content-type class; objects created for this content type will
@@ -56,11 +60,25 @@ class Favorite(dexterity.Item):
         
     @property
     def title(self):
-        return self.target().title
+        if self.target_uid != None:
+            return self.target().title
+        else:
+            return ""
+
+    @title.setter
+    def title(self, value):
+        return
 
     @property
     def description(self):
-        return self.target().Description()
+        if self.target_uid != None:
+            return self.target().Description()
+        else:
+            return ""
+
+    @description.setter
+    def description(self, value):
+        return
         
 # View class
 # The view will automatically use a similarly named template in

@@ -20,7 +20,6 @@ logger = getLogger('collective.favorites')
 from collective.favorites import MessageFactory as _
 
 
-
 def createFavFolder(event):
     request = event.object.REQUEST
     
@@ -33,13 +32,11 @@ def createFavFolder(event):
             typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
             home_folder['favorites'].setTitle('Favorites')
 
-
 class AddFavoriteView(BrowserView):
     
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
 
     # BrowserView helper method
     def getUID(self):
@@ -60,8 +57,6 @@ class AddFavoriteView(BrowserView):
         link_url = self.context.absolute_url()
         link_uid = self.getUID()
         
-        #import ipdb; ipdb.set_trace()
-        
         typestool = getToolByName(self, 'portal_types')
         home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
         
@@ -69,22 +64,11 @@ class AddFavoriteView(BrowserView):
             self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
         else:
             if not home_folder.has_key('favorites'):
-                #home_folder.invokeFactory(type_name="Favorites Folder", id='favorites', Title='Favorites', language= '')
                 fav = typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
                 home_folder[fav].setTitle(_(u"Favorites"))
             fav = home_folder['favorites']
             if not fav.has_key('fav'+link_uid):
-                #import ipdb; ipdb.set_trace()
-                #try:
-                #link = typestool.constructContent(type_name="Favorite", container=fav, id='fav' + link_uid)
-                #except: 
-                #link = fav.invokeFactory(type_name="Favorite", id='fav' + link_uid)
-                link = createContentInContainer(fav, "Favorite", checkConstrains=False, id='fav' + link_uid, title='fav'+link_uid)
-
-                #fav[link].setTitle(link_title)
-                
-                #fav[link].setRemoteUrl(link_url)
-                #fav[link].target_uid = link_uid
+                link = createContentInContainer(fav, "Favorite", checkConstrains=False, id='fav' + link_uid, title='fav'+link_uid, target_uid = link_uid)
                 self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
             else:           
                 self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")

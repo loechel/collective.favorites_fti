@@ -22,7 +22,7 @@ def setupVarious(context):
     # flag to check that we actually meant for this import step to be run.
     # The file is found in profiles/default.
 
-    if context.readDataFile('collective.favorites.txt') is None:
+    if context.readDataFile('collective.favoritesi_various.txt') is None:
         return
 
     # Add additional setup code here
@@ -31,13 +31,13 @@ def setupVarious(context):
     tool = getToolByName(portal, 'portal_membership')
     
     # Member Folder necessary for internal Favorites
-    if not tool.getMemberareaCreationFlag():
-        tool.setMemberareaCreationFlag(True)
+    #if not tool.getMemberareaCreationFlag():
+    tool.setMemberareaCreationFlag(True)
         
     folder = tool.getMembersFolder()
     
     if folder == None:
         folder_id = portal.invokeFactory(type_name="Folder", id=tool.membersfolder_id)
-        portal[folder_id].setTitle('Members')
+        portal[folder_id].setTitle(tool.membersfolder_id)
         portal[folder_id].setLanguage("")
     
