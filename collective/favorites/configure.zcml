@@ -26,6 +26,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:importStep
+      name="collective.favorites.various"
+      title="collective.favorites: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="collective.favorites.setuphandlers.setupVarious">
+  </genericsetup:importStep>
+
+
   <!-- -*- extra stuff goes here -*- -->
 
   <subscriber for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
