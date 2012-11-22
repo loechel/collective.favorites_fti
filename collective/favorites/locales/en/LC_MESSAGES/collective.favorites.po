@@ -19,8 +19,12 @@ msgid "A Favorites Folder that hold internal Favorites"
 msgstr "A Favorites Folder that holds internal Favorites"
 
 #: ./profiles/default/actions.xml
-msgid "Add To Favorites"
-msgstr "Add To Favorites"
+msgid "Add To Internal Favorites"
+msgstr "Add To Internal Favorites"
+
+#: ./profiles/default/actions.xml
+msgid "Add to browser favorites"
+msgstr "Add to browser favorites"
 
 #: ./profiles/default/types/Favorite.xml
 msgid "An internal Favorite"
@@ -51,8 +55,8 @@ msgid "Favorites Folder"
 msgstr "Favorites Folder"
 
 #: ./profiles/default/actions.xml
-msgid "Remove from Favorites"
-msgstr ""
+msgid "Remove from Internal Favorites"
+msgstr "Remove from Internal Favorites"
 
 #: ./favorite.py:42
 msgid "Target UID"

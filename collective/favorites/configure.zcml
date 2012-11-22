@@ -61,4 +61,10 @@
       permission="zope2.View"
       />
       
+    <browser:resourceDirectory
+      name="collective.favorites.js"
+      directory="js"
+      layer="*"
+      />
+      
 </configure>

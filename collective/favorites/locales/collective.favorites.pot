@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-22 18:57+0000\n"
+"POT-Creation-Date: 2012-11-22 19:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,11 @@ msgid "A Favorites Folder that hold internal Favorites"
 msgstr ""
 
 #: ./profiles/default/actions.xml
-msgid "Add To Favorites"
+msgid "Add To Internal Favorites"
+msgstr ""
+
+#: ./profiles/default/actions.xml
+msgid "Add to browser favorites"
 msgstr ""
 
 #: ./profiles/default/types/Favorite.xml
@@ -58,7 +62,7 @@ msgid "Favorites Folder"
 msgstr ""
 
 #: ./profiles/default/actions.xml
-msgid "Remove from Favorites"
+msgid "Remove from Internal Favorites"
 msgstr ""
 
 #: ./favorite.py:42
