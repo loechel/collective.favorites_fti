@@ -14,7 +14,7 @@
       name="url_expr">string: ${here/absolute_url}/addFavorite</property>
    <property name="link_target"></property>
    <property name="icon_expr"></property>
-   <property name="available_expr">not: context/existsFavorite</property>
+   <property name="available_expr">python:member is not None and not context.existsFavorite</property>
    <property name="permissions">
     <element value="View"/>
    </property>
