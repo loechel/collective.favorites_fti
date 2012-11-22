@@ -31,9 +31,10 @@ def createFavFolder(event):
             typestool = getToolByName(self.context, 'portal_types')
             typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
             home_folder['favorites'].setTitle('Favorites')
+            home_folder['favorites'].setExcludeFromNav(True)
 
-class AddFavoriteView(BrowserView):
-    
+class FavoriteView(BrowserView):
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -49,6 +50,8 @@ class AddFavoriteView(BrowserView):
         uuid = IUUID(context, None)
         return uuid
 
+class AddFavoriteView(FavoriteView):
+    
     def __call__(self):
         self.messages = IStatusMessage(self.request)
         
@@ -61,16 +64,57 @@ class AddFavoriteView(BrowserView):
         home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
         
         if home_folder == None:
-            self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
+            msgid = _(u"no_home_folder_msg", default=u"User did not have a Home Folder, could not create Favorite Link for ${path}" , mapping={ u"path" : link_url()})
+            translated = self.context.translate(msgid)
+            self.messages.add(translated, type=u"warn")
+            #self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
         else:
             if not home_folder.has_key('favorites'):
                 fav = typestool.constructContent(type_name="Favorites Folder", container=home_folder, id='favorites')
                 home_folder[fav].setTitle(_(u"Favorites"))
+                home_folder['favorites'].setExcludeFromNav(True)
             fav = home_folder['favorites']
             if not fav.has_key('fav'+link_uid):
                 link = createContentInContainer(fav, "Favorite", checkConstrains=False, id='fav' + link_uid, title='fav'+link_uid, target_uid = link_uid)
-                self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
+                
+                msgid = _(u"fav_created_msg", default=u"Favorites Link created for ${path}" , mapping={ u"path" : link_url()})
+                translated = self.context.translate(msgid)
+                self.messages.add(translated, type=u"info")
+                #self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
             else:           
-                self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
+                msgid = _(u"fav_doubled_msg", default=u"Favorites Link already exists for ${path}" , mapping={ u"path" : link_url()})
+                translated = self.context.translate(msgid)
+                self.messages.add(translated, type=u"warn")
+                #self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
         return self.request.RESPONSE.redirect(self.context.absolute_url())
     
+class RemoveFavoriteView(FavoriteView):
+
+    def __call__(self):
+        self.messages = IStatusMessage(self.request)
+        
+        link_uid = self.getUID()
+        
+        typestool = getToolByName(self, 'portal_types')
+        home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
+        fav_folder = home_folder['favorites']
+        try: 
+            fav_folder.manage_delObjects(['fav'+link_uid])
+            
+            self.messages.add(_(u"Favorite deleted") , type=u"info")
+        except:
+            self.messages.add(_(u"Could not delete Favorite") , type=u"error")
+        return self.request.RESPONSE.redirect(self.context.absolute_url())
+
+class ExistsFavoriteView(FavoriteView):
+    
+    def __call__(self):
+        link_uid = self.getUID()
+        
+        typestool = getToolByName(self, 'portal_types')
+        home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
+        
+        if home_folder != None and home_folder.has_key('favorites') and home_folder['favorites'].has_key('fav'+link_uid):
+            return True
+        return False
+

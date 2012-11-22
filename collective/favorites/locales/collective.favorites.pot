@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-11-22 16:58+0000\n"
+"POT-Creation-Date: 2012-11-22 18:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,10 @@ msgstr ""
 msgid "An internal Favorite"
 msgstr ""
 
+#: ./create_favorites_folder.py:106
+msgid "Could not delete Favorite"
+msgstr ""
+
 #: ./favorite.py:40
 msgid "Description"
 msgstr ""
@@ -41,7 +45,11 @@ msgstr ""
 msgid "Favorite"
 msgstr ""
 
-#: ./create_favorites_folder.py:68
+#: ./create_favorites_folder.py:104
+msgid "Favorite deleted"
+msgstr ""
+
+#: ./create_favorites_folder.py:74
 msgid "Favorites"
 msgstr ""
 
@@ -49,12 +57,8 @@ msgstr ""
 msgid "Favorites Folder"
 msgstr ""
 
-#: ./create_favorites_folder.py:74
-msgid "Favorites Link already exists for %s"
-msgstr ""
-
-#: ./create_favorites_folder.py:72
-msgid "Favorites Link created for %s"
+#: ./profiles/default/actions.xml
+msgid "Remove from Favorites"
 msgstr ""
 
 #: ./favorite.py:42
@@ -65,7 +69,18 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ./create_favorites_folder.py:64
-msgid "User did not have a Home Folder, could not create Favorite Link for %s"
+#. Default: "Favorites Link created for ${path}"
+#: ./create_favorites_folder.py:80
+msgid "fav_created_msg"
+msgstr ""
+
+#. Default: "Favorites Link already exists for ${path}"
+#: ./create_favorites_folder.py:85
+msgid "fav_doubled_msg"
+msgstr ""
+
+#. Default: "User did not have a Home Folder, could not create Favorite Link for ${path}"
+#: ./create_favorites_folder.py:67
+msgid "no_home_folder_msg"
 msgstr ""
 

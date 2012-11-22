@@ -14,7 +14,21 @@
       name="url_expr">string: ${here/absolute_url}/addFavorite</property>
    <property name="link_target"></property>
    <property name="icon_expr">string:$portal_url/fav_icon.png</property>
-   <property name="available_expr"></property>
+   <property name="available_expr">not: context/existsFavorite</property>
+   <property name="permissions">
+    <element value="View"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+  
+  <object name="rmFav" meta_type="CMF Action" i18n:domain="collective.favorites">
+   <property name="title" i18n:translate="">Remove from Favorites</property>
+   <property name="description" i18n:translate=""></property>
+   <property
+      name="url_expr">string: ${here/absolute_url}/removeFavorite</property>
+   <property name="link_target"></property>
+   <property name="icon_expr">string:$portal_url/fav_icon.png</property>
+   <property name="available_expr">context/existsFavorite</property>
    <property name="permissions">
     <element value="View"/>
    </property>

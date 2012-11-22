@@ -26,6 +26,10 @@ msgstr "Zu Favoriten hinzufügen"
 msgid "An internal Favorite"
 msgstr "Ein persönlicher Favorit"
 
+#: ./create_favorites_folder.py:106
+msgid "Could not delete Favorite"
+msgstr "Kann Favorit nicht entfernen"
+
 #: ./favorite.py:40
 msgid "Description"
 msgstr "Beschreibung"
@@ -34,7 +38,11 @@ msgstr "Beschreibung"
 msgid "Favorite"
 msgstr "Favorit"
 
-#: ./create_favorites_folder.py:68
+#: ./create_favorites_folder.py:104
+msgid "Favorite deleted"
+msgstr "Favorit entfernt"
+
+#: ./create_favorites_folder.py:74
 msgid "Favorites"
 msgstr "Favoriten"
 
@@ -42,13 +50,9 @@ msgstr "Favoriten"
 msgid "Favorites Folder"
 msgstr "Favoritenordner"
 
-#: ./create_favorites_folder.py:74
-msgid "Favorites Link already exists for %s"
-msgstr "Favoriten-Link existiert bereits für %s"
-
-#: ./create_favorites_folder.py:72
-msgid "Favorites Link created for %s"
-msgstr "Favoriten-Link erzeugt für %s"
+#: ./profiles/default/actions.xml
+msgid "Remove from Favorites"
+msgstr "Von Favoriten entfernen"
 
 #: ./favorite.py:42
 msgid "Target UID"
@@ -58,7 +62,18 @@ msgstr "Ziel-UID"
 msgid "Title"
 msgstr "Titel"
 
-#: ./create_favorites_folder.py:64
-msgid "User did not have a Home Folder, could not create Favorite Link for %s"
-msgstr "Benutzer hatte kein Homeverzeichnis, konnte deshalb keinen Favoriten-Link erzeugen für %s"
+#. Default: "Favorites Link created for ${path}"
+#: ./create_favorites_folder.py:80
+msgid "fav_created_msg"
+msgstr "${path} zu Favoriten hinzugefügt"
+
+#. Default: "Favorites Link already exists for ${path}"
+#: ./create_favorites_folder.py:85
+msgid "fav_doubled_msg"
+msgstr "${path} bereits bei Favoriten vorhanden"
+
+#. Default: "User did not have a Home Folder, could not create Favorite Link for ${path}"
+#: ./create_favorites_folder.py:67
+msgid "no_home_folder_msg"
+msgstr "Benutzer hat kein Homeverzeichnis, deshalb Hinzufügen von ${path} zu Favoriten nicht möglich"
 

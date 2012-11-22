@@ -46,4 +46,19 @@
       permission="zope2.View"
       />
       
+    <browser:page
+      for="*"
+      name="removeFavorite"
+      class=".create_favorites_folder.RemoveFavoriteView"
+      permission="zope2.View"
+      />
+      
+       
+    <browser:page
+      for="*"
+      name="existsFavorite"
+      class=".create_favorites_folder.ExistsFavoriteView"
+      permission="zope2.View"
+      />
+      
 </configure>
