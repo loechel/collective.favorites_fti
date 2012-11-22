@@ -64,7 +64,7 @@ class AddFavoriteView(FavoriteView):
         home_folder = getToolByName(self, 'portal_membership').getHomeFolder()
         
         if home_folder == None:
-            msgid = _(u"no_home_folder_msg", default=u"User did not have a Home Folder, could not create Favorite Link for ${path}" , mapping={ u"path" : link_url()})
+            msgid = _(u"no_home_folder_msg", default=u"User did not have a Home Folder, could not create Favorite Link for ${path}" , mapping={ u"path" : link_url})
             translated = self.context.translate(msgid)
             self.messages.add(translated, type=u"warn")
             #self.messages.add(_(u"User did not have a Home Folder, could not create Favorite Link for %s") % link_url, type=u"warn")
@@ -77,12 +77,12 @@ class AddFavoriteView(FavoriteView):
             if not fav.has_key('fav'+link_uid):
                 link = createContentInContainer(fav, "Favorite", checkConstrains=False, id='fav' + link_uid, title='fav'+link_uid, target_uid = link_uid)
                 
-                msgid = _(u"fav_created_msg", default=u"Favorites Link created for ${path}" , mapping={ u"path" : link_url()})
+                msgid = _(u"fav_created_msg", default=u"Favorites Link created for ${path}" , mapping={ u"path" : link_url})
                 translated = self.context.translate(msgid)
                 self.messages.add(translated, type=u"info")
                 #self.messages.add(_(u"Favorites Link created for %s") % link_url, type=u"info")
             else:           
-                msgid = _(u"fav_doubled_msg", default=u"Favorites Link already exists for ${path}" , mapping={ u"path" : link_url()})
+                msgid = _(u"fav_doubled_msg", default=u"Favorites Link already exists for ${path}" , mapping={ u"path" : link_url})
                 translated = self.context.translate(msgid)
                 self.messages.add(translated, type=u"warn")
                 #self.messages.add(_(u"Favorites Link already exists for %s") % link_url, type=u"warn")
