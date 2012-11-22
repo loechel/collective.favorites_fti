@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2012-11-22 17:56+0100\n"
+"Last-Translator: Max Jakob <max.jakob@ifi.lmu.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./profiles/default/types/Favorites_Folder.xml
+msgid "A Favorites Folder that hold internal Favorites"
+msgstr "Ein Ordner, der die Favoriten des jeweiligen Benutzers enthält"
+
+#: ./profiles/default/actions.xml
+msgid "Add To Favorites"
+msgstr "Zu Favoriten hinzufügen"
+
+#: ./profiles/default/types/Favorite.xml
+msgid "An internal Favorite"
+msgstr "Ein persönlicher Favorit"
+
+#: ./favorite.py:40
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ./profiles/default/types/Favorite.xml
+msgid "Favorite"
+msgstr "Favorit"
+
+#: ./create_favorites_folder.py:68
+msgid "Favorites"
+msgstr "Favoriten"
+
+#: ./profiles/default/types/Favorites_Folder.xml
+msgid "Favorites Folder"
+msgstr "Favoritenordner"
+
+#: ./create_favorites_folder.py:74
+msgid "Favorites Link already exists for %s"
+msgstr "Favoriten-Link existiert bereits für %s"
+
+#: ./create_favorites_folder.py:72
+msgid "Favorites Link created for %s"
+msgstr "Favoriten-Link erzeugt für %s"
+
+#: ./favorite.py:42
+msgid "Target UID"
+msgstr "Ziel-UID"
+
+#: ./favorite.py:38
+msgid "Title"
+msgstr "Titel"
+
+#: ./create_favorites_folder.py:64
+msgid "User did not have a Home Folder, could not create Favorite Link for %s"
+msgstr "Benutzer hatte kein Homeverzeichnis, konnte deshalb keinen Favoriten-Link erzeugen für %s"
+
